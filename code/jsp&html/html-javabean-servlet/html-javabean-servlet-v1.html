@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+	<h3>登录系统</h3>
+	<div>
+		用户名：<label><input type="text" id="username"></label><br>
+		密码：<label><input type="password" id="password"></label>
+		<button type="submit" onclick="login()">登录</button>
+		<p id="msg" style="color: red"></p>
+	</div>
+	<script>
+		function login() {
+			let username = $('#username').val();
+			let password = $('#password').val();
+			$.ajax({
+				url:"/what_is_mvc_war_exploded/user/loginServlet",
+				data:{"username":username,"password":password},
+				dataType:"json",
+				success: function(data) {
+					console.log(data)
+					$("#msg").html(data.message);
+				}
+			});
+		}
+	</script>
+</body>
+</html>

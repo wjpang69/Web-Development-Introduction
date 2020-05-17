@@ -1,0 +1,41 @@
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h3>登录系统</h3>
+<div id="login">
+	用户名：<label><input type="text" v-model="username" ></label><br>
+	密码：<label><input type="password" v-model="password"></label>
+	<button type="submit" v-on:click="login">登录</button>
+	<p style="color: red">{{ message }}</p>
+</div>
+<script>
+	let login = new Vue({
+		el:"#login",
+		data:{
+			username:'', password:'', message:''
+		},
+		methods:{
+			login: function () {
+				axios.get('/what_is_mvc_war_exploded/user/loginServlet', {
+					params: {
+						username:this.username,
+						password:this.password
+					}
+				})
+				.then(response => {
+					this.message = response.data.message;
+				})
+				.catch(error => {
+					alert(error);
+				});
+			}
+		}
+	})
+</script>
+</body>
+</html>
